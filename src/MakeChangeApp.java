@@ -1,12 +1,22 @@
+import java.util.Scanner;
 
 public class MakeChangeApp {
 
 	public static void main(String[] args) {
+			
 		makeChange();
 	}
 	
 	public static void makeChange () {
-		double change = 0.00;
+		
+		Scanner kb = new Scanner(System.in);
+		
+		System.out.println("Enter price of item: ");
+		double price = kb.nextDouble();
+		System.out.println("Enter amount tendered by customer: ");
+		double cashPay = kb.nextDouble();
+		double change = cashPay - price ;
+		
 		double twentyBill = 20.00 ; double tenBill = 10.00 ;
 		double fiveBill = 5.00 ; double oneBill = 1.00;
 		double quarter = 0.25 ; double dime = 0.10 ; 
@@ -16,10 +26,20 @@ public class MakeChangeApp {
 		int fiveCount = 0;
 		int oneCount = 0;
 		int quarterCount = 0;
-		
-		change = 13.25;
+		int dimeCount = 0;
+		int nickelCount = 0;
+		int pennyCount = 0;
+			
+			if (change < 0.0) {
+				System.out.println("Insufficient payment need $" +
+			(price - cashPay) );
+			}
+			else {
+			System.out.println("Change due: $" + change);
+			}
+			
 		//loop to make change
-		while (change != 0.00) {
+		while (change >= 0.001) {
 			if (change >= 20.00) {
 				change = change - twentyBill ;
 			twentyCount ++ ; 
@@ -42,24 +62,30 @@ public class MakeChangeApp {
 			}
 			else if (change >= 0.10) {
 				change = change - dime ;
-			int dimeCount = 0;
-			dimeCount ++ ;
+				dimeCount ++ ;
 			}
 			else if (change >= 0.05) {
 				change = change - nickel ;
-			int nickelCount = 0;
-			nickelCount ++ ;
+				nickelCount ++ ;
 			}
 			else if (change >= 0.01) {
 				change = change - penny ;
-			int pennyCount = 0;
-			pennyCount ++ ;
+				pennyCount ++ ;
+//				System.out.println("less than penny" + change);
 			}
+			else if (change >= 0.0005 ) {
+				pennyCount ++ ;
+				change = 0.00;
+			}
+				
+			kb.close();
 		}
+		
 		System.out.println("Give change: " + twentyCount + 
-				"x$20, " + tenCount + "x$10, " + fiveCount +
-				"x$5, " + oneCount + "x$1, " +quarterCount +
-				"xquarters, ") ;
-			
+				" $20, " + tenCount + " $10, " + fiveCount +
+				" $5, " + oneCount + " $1, \n" + quarterCount +
+				" quarter, " + dimeCount + " dime, " + nickelCount +
+				" nickel, " + pennyCount + " penny") ;
+		
 	}
 }
